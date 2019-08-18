@@ -1,13 +1,17 @@
 import React from 'react';
-import './App.css';
-import { Button } from 'semantic-ui-react'
+import HomepageLayout from './components/homepageLayout'
+import LoginForm from './components/login'
 
-function App() {
-  return (
-    <div className="App">
-      <Button primary >Click Here</Button>
-    </div>
-  );
-}
+class App extends React.Component {
+ 
+
+  render (){
+    return (
+    <div>
+      <LoginForm /> 
+     </div>
+     )
+  }
+} // end of class 
 
 export default App;
