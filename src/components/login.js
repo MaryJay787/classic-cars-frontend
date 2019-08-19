@@ -72,9 +72,15 @@ export default class LoginForm extends React.Component{
     console.log(this.state.username, this.state.password)
     console.log( 'login clicked')
     //find user by id
-     fetch(`http://localhost:3000/user/`)
+     fetch(`http://localhost:3000/login`, {
+      method: 'POST',
+      headers: {
+        'Content-type' : 'application/json'
+      },
+      body: JSON.stringify(this.state)
+      })
      .then(res => res.json())
-     .then()
+     .then(console.log)
       
   }
   

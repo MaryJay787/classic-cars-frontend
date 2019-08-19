@@ -6,8 +6,7 @@ class SignUpPage extends React.Component{
         super();
         this.state = {
             username: '',
-            password: '',
-            image: ''
+            password: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -37,10 +36,6 @@ class SignUpPage extends React.Component{
     render(){
         return(
                 <Form onSubmit={this.handleSubmit}>  
-                <Form.Field >
-                    <label>Image</label>
-                    <input placeholder='Picture Url' name='image' onChange={this.handleInput} />
-                    </Form.Field>
                     <Form.Field>
                     <label>username</label>
                     <input placeholder='Username' name='username' onChange={this.handleInput} />
