@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Button, Container, Divider, Grid, Header, Icon, Image,List,Menu, Responsive,Segment,
-         Sidebar, Visibility,} from 'semantic-ui-react'
+         Sidebar, Visibility,} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 // Heads up!
 // We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
@@ -40,10 +41,10 @@ const HomepageHeading = ({ mobile }) => (
         marginTop: mobile ? '0.5em' : '1.5em',
       }}
     />
-    <Button primary size='huge'>
+    <Link><Button primary size='huge'>
       Get Started
       <Icon name='right arrow' />
-    </Button>
+    </Button></Link>
   </Container>
 )
 
@@ -87,12 +88,12 @@ class DesktopContainer extends Component {
             >
               <Container>
                <Menu.Item position='right'>
-                  <Button as='a' inverted={!fixed}>
+                  <Link to="/login"><Button as='a' inverted={!fixed}>
                     Log in
-                  </Button>
-                  <Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
+                  </Button></Link>
+                  <Link to="/signup"><Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
                     Sign Up
-                  </Button>
+                  </Button></Link>
                 </Menu.Item>
               </Container>
             </Menu>
@@ -261,7 +262,7 @@ const HomepageLayout = () => (
           horizontal
           style={{ margin: '3em 0em', textTransform: 'uppercase' }}
         >
-          <a href='#'>Case Studies</a>
+          
         </Divider>
         <Header as='h3' style={{ fontSize: '2em' }}>
           Did We Tell You About Our Bananas?
