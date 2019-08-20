@@ -16,6 +16,40 @@ export default class UserProfile extends React.Component{
     const cars = ls.get('userCars')
     return cars.filter(car => car.added)
   }
+  compentDidMount(){
+    this.checkLoginStatus();
+
+  }
+  // user(){
+  //   ls.set('username', this.props.username)
+  //   const name = ls.get('username')
+  //   console.log(name)
+  // }
+
+  checkLoginStatus(){
+    fetch("http://localhost:3001/login", { withCredentials: true })
+    .then(res => res.json())
+    .then(console.log)}
+  //   .then(response => {
+  //     if (this.state.loggedInStatus === false) 
+  //     {
+  //       this.setState({
+  //         loggedInStatus: true,
+  //         currentUser: response.user
+  //       });
+  //     } else if (
+  //       (this.state.loggedInStatus === true)
+  //     ) {
+  //       this.setState({
+  //         loggedInStatus: false
+  //       });
+  //     }
+  //   })
+  //   .catch(error => {
+  //     console.log("check login error", error);
+  //   },
+  //   );   
+  // }
     
   render (){
       const { activeItem } = this.state
@@ -50,11 +84,11 @@ export default class UserProfile extends React.Component{
           <Image src="https://secureservercdn.net/184.168.47.225/b8a.cee.myftpupload.com/wp-content/uploads/2013/09/Screen-Shot-2013-09-19-at-4.59.44-PM.png"/>
            
           <Card.Content>
-            <Card.Header>Kristy</Card.Header>
+            <Card.Header>{this.props.username}</Card.Header>
           <Card.Meta>
             <span className="date">Joined in 2013</span>
           </Card.Meta>
-          <Card.Description>Kristy is an art director living in New York. </Card.Description>
+          <Card.Description>{this.props.username} is an art director living in New York. </Card.Description>
           </Card.Content>
           <Card.Content extra>
            
@@ -67,12 +101,11 @@ export default class UserProfile extends React.Component{
         </Container>
 
         <Segment>
-          <Header textAlign='center'>Kristy Cars Collections</Header>
+          <Header textAlign='center'>{this.props.username} Cars Collections</Header>
           <Divider hidden/>
-          {console.log(this.props.userCars)}
           <Container>
             <Grid centered>
-            {this.state.activeItem === 'your car collection' ? this.mapCars().map(car => <CarCard addBtnToggle={this.state.addBtnToggle} car={car}/>) : null}
+            {this.state.activeItem === 'your car collection' ? this.mapCars().map(car => <CarCard removeCar={this.props.removeCar} addBtnToggle={this.state.addBtnToggle} car={car}/>) : null}
             </Grid>
             </Container>
         </Segment>

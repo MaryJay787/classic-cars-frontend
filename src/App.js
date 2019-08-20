@@ -114,6 +114,7 @@ class App extends Component {
 
   handleLoginUChange = (e) => {
     this.setState({username: e.target.value }) 
+    // ls.set('username', this.state.username)
   }
 
   handleLoginPChange = (e) => {
@@ -169,6 +170,20 @@ class App extends Component {
 
   }
 
+  removeCar = (id) => {
+    console.log(id, 'remove car')
+    const updatesUser = this.state.userCars.map(car => {
+      if (car.id === id){
+        car.added = false
+        return car
+      } else
+      return car
+    })
+    this.setState({userCars: updatesUser})
+    ls.remove('userCars')
+    ls.set('userCars', updatesUser)
+  }
+
 
   render() {
     return (
@@ -178,7 +193,7 @@ class App extends Component {
         <Route exact path="/login" render={() => (<Login user={this.state.username} 
         handleLoginUChange={this.handleLoginUChange} handleLoginPChange={this.handleLoginPChange} handleLoginSubmit={this.handleLoginSubmit}/>)} />
         <Route exact path="/signup" render={() => (<SignUpPage handleSignUChange={this.handleSignUChange} handleSignPChange={this.handleSignPChange} handleSignSubmit={this.handleSignSubmit} username={this.state.username} password={this.state.password}/>)}/>
-        <Route exact path="/userprofile" render={() => (<UserProfile user={this.state.currentUser}/>)}/>
+        <Route exact path="/userprofile" render={() => (<UserProfile removeCar={this.removeCar} username={this.state.username}/>)}/>
         <Route exact path="/cars" render={() => ( <CarsCollection addCar={this.addCar} user={this.state.currentUser} loginStatus={this.state.loggedInStatus} cars={this.state.cars}/>)}/>
 
         
