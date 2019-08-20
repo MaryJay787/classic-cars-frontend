@@ -5,7 +5,9 @@ import UserProfile from "./components/userprofile";
 import HomepageLayout from "./components/homepageLayout";
 import Login from './components/login'
 import SignUpPage from './components/signup-page'
-// import CarsCollection from './components/cars-collection'
+import CarsCollection from './components/cars-collection'
+
+const carsApi = "http://localhost:3000/cars"
 
 class App extends Component {
   constructor(){
@@ -14,15 +16,21 @@ class App extends Component {
       loggedInStatus: false ,
           username: '', 
         password: '',
-        currentUser: {}
-      
+        currentUser: {},
+        cars: []   
     };
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
-    // this.handleLogin = this.handleLogin.bind(this);
+    this.handleSignSubmit = this.handleSignSubmit.bind(this)
+     // this.handleLogin = this.handleLogin.bind(this);
     // this.handleLogout = this.handleLogout.bind(this);
 
-    this.handleSignSubmit = this.handleSignSubmit.bind(this)
+  }
 
+  componentDidMount(){
+    fetch(carsApi)
+    .then(res => res.json())
+    .then(cars => this.setState({cars: cars}))
+    // .catch(error => console.log(error))
 
   }
 
@@ -101,12 +109,10 @@ handleSignPChange = (e) => {
   
 
   handleLoginUChange = (e) => {
-
     this.setState({username: e.target.value }) 
   }
 
   handleLoginPChange = (e) => {
-
     this.setState({password: e.target.value})
   }
 
@@ -154,7 +160,7 @@ handleSignPChange = (e) => {
         handleLoginUChange={this.handleLoginUChange} handleLoginPChange={this.handleLoginPChange} handleLoginSubmit={this.handleLoginSubmit}/>)} />
         <Route exact path="/signup" render={() => (<SignUpPage handleSignUChange={this.handleSignUChange} handleSignPChange={this.handleSignPChange} handleSignSubmit={this.handleSignSubmit} username={this.state.username} password={this.state.password}/>)}/>
         <Route exact path="/userprofile" render={() => (<UserProfile user={this.state.currentUser}/>)}/>
-        {/* <Route exact path="/cars" component={CarsCollection}/> */}
+        <Route exact path="/cars" render={() => ( <CarsCollection cars={this.state.cars}/>)}/>
 
         
      </Switch>
