@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactCardFlip from 'react-card-flip';
 import { Card, Image, Divider, Button, List } from 'semantic-ui-react'
@@ -20,13 +21,13 @@ class CarCard extends React.Component{
   render(){
         return(
             <div>
-                {console.log(this.props.user)}
+                {/* {console.log(this.props.user)} */}
             <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
             <Card key="front" >
                 <Image src={this.props.car.image} circular size="medium" />
                 <Card.Content>
                 <Card.Header>{this.props.car.make} {this.props.car.model}</Card.Header>
-                <Card.Meta>Year:{this.props.car.users}</Card.Meta>
+                <Card.Meta>Year:{this.props.car.year}</Card.Meta>
                 <Card.Description>
                     Engine: {this.props.car.engine}
                 </Card.Description>
@@ -34,7 +35,8 @@ class CarCard extends React.Component{
                 </Card.Content>
              
                 <Button onClick={this.handleClick}>Click to flip</Button>
-                <Button content='Add To Collection'/>
+                <Button onClick={(e) => this.props.addCar(this.props.car.id)} content='Add To Collection'/>
+
              
                 <Divider hidden/>
             </Card>
