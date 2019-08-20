@@ -16,7 +16,7 @@ class CarsCollection extends React.Component {
                 <Container>
                     <Grid centered>
                      {this.props.cars.map((car, idx) => <CarCard key={idx} car={car}/> )}
-                      <Divider/>
+                      <Divider hidden/>
                     </Grid>
                 </Container>
             </Segment>
