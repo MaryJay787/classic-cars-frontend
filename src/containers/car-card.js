@@ -35,7 +35,7 @@ class CarCard extends React.Component{
                 </Card.Content>
              
                 <Button onClick={this.handleClick}>Click to flip</Button>
-                <Button onClick={(e) => this.props.addCar(this.props.car.id)} content='Add To Collection'/>
+                {this.props.addBtnToggle ? <Button content='Remove Car'/> : <Button onClick={(e) => this.props.addCar(this.props.car.id)} content='Add To Collection'/>}
 
              
                 <Divider hidden/>

@@ -3,9 +3,10 @@ import { Switch, Route, withRouter } from "react-router-dom";
 // import {axios} from "axios";
 import UserProfile from "./components/userprofile";
 import HomepageLayout from "./components/homepageLayout";
-import Login from './components/login'
-import SignUpPage from './components/signup-page'
-import CarsCollection from './components/cars-collection'
+import Login from './components/login';
+import SignUpPage from './components/signup-page';
+import CarsCollection from './components/cars-collection';
+import ls from 'local-storage';
 
 const carsApi = "http://localhost:3000/cars"
 
@@ -37,6 +38,7 @@ class App extends Component {
         car.added = false
         return car })
         this.setState({cars: updatedCars})
+        // ls.set('cars', updatedCars)
     })
     // .catch(error => console.log(error))
 
@@ -163,13 +165,10 @@ class App extends Component {
       }
     })
     this.setState({userCars: newUserCar})
-    
+    ls.set('userCars', newUserCar)
+
   }
 
-  userCarCollection(){
-    console.log(this.state.userCars)
-    return this.state.userCars.filter(car => car.added)
-  }
 
   render() {
     return (
@@ -179,12 +178,11 @@ class App extends Component {
         <Route exact path="/login" render={() => (<Login user={this.state.username} 
         handleLoginUChange={this.handleLoginUChange} handleLoginPChange={this.handleLoginPChange} handleLoginSubmit={this.handleLoginSubmit}/>)} />
         <Route exact path="/signup" render={() => (<SignUpPage handleSignUChange={this.handleSignUChange} handleSignPChange={this.handleSignPChange} handleSignSubmit={this.handleSignSubmit} username={this.state.username} password={this.state.password}/>)}/>
-        <Route exact path="/userprofile" render={() => (<UserProfile userCars={this.userCarCollection()} user={this.state.currentUser}/>)}/>
+        <Route exact path="/userprofile" render={() => (<UserProfile user={this.state.currentUser}/>)}/>
         <Route exact path="/cars" render={() => ( <CarsCollection addCar={this.addCar} user={this.state.currentUser} loginStatus={this.state.loggedInStatus} cars={this.state.cars}/>)}/>
 
         
      </Switch>
-     {/* {this.state.loggedInStatus ? <UserProfile user={this.state.username}/> : null} */}
       </div>
     );
   }

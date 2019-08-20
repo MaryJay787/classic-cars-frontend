@@ -1,17 +1,21 @@
 import React from 'react';
-import { Menu, Header, Card, Image, Container, Segment, Icon, Grid } from 'semantic-ui-react';
+import { Menu, Header, Card, Image, Container, Segment, Icon, Grid, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import CarCard from '../containers/car-card';
+import ls from 'local-storage';
+
 
 
 
 export default class UserProfile extends React.Component{
-  state = { activeItem: 'profile' }
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
-  // mapCars(){
-  //   return this.props.userCars.map(car => car)
-  // }
+  state = { activeItem: 'profile',
+              addBtnToggle: false }
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name, addBtnToggle: !this.state.addBtnToggle })
+  
+  mapCars(){
+    const cars = ls.get('userCars')
+    return cars.filter(car => car.added)
+  }
     
   render (){
       const { activeItem } = this.state
@@ -63,11 +67,14 @@ export default class UserProfile extends React.Component{
         </Container>
 
         <Segment>
-        <Header textAlign='center'>Kristy Cars Collections</Header>
-        {console.log(this.props.userCars)}
-        <Grid centered>
-        {this.state.activeItem === 'your car collection' ? this.props.userCars.map(car => <CarCard car={car}/>) : null}
-        </Grid>
+          <Header textAlign='center'>Kristy Cars Collections</Header>
+          <Divider hidden/>
+          {console.log(this.props.userCars)}
+          <Container>
+            <Grid centered>
+            {this.state.activeItem === 'your car collection' ? this.mapCars().map(car => <CarCard addBtnToggle={this.state.addBtnToggle} car={car}/>) : null}
+            </Grid>
+            </Container>
         </Segment>
         </div> //end of div
          
