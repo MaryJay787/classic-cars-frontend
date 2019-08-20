@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
-
+import logo from "../logo.png";
 export default class LoginForm extends React.Component{
   
  
@@ -10,6 +10,7 @@ export default class LoginForm extends React.Component{
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h2' color='teal' textAlign='center'>
+          <img className="logo" src={logo} alt="Car Logo" WIDTH="100" HEIGHT="100" />
             Log-in to your account
             </Header>
                 <Form size='large' onSubmit={this.props.handleLoginSubmit}>
