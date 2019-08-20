@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import { Button, Container, Grid, Header, Icon, Image ,Menu, Responsive,Segment,
          Sidebar, Visibility,} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import logo from "../logo.png";
+import Blackandwhite from "../blackandwhitecar.jpg"
+import Plymouthpick from "../plymouthpink.jpg"
+
 
 // Heads up!
 // We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
@@ -28,7 +32,6 @@ const HomepageHeading = ({ mobile }) => (
         fontWeight: 'normal',
         marginBottom: 0,
         marginTop: mobile ? '1.5em' : '3em',
-        
       }}
     />
     <Header
@@ -46,6 +49,7 @@ const HomepageHeading = ({ mobile }) => (
       <Icon name='right arrow' />
     </Button></Link>
   </Container>
+
 )
 
 HomepageHeading.propTypes = {
@@ -87,6 +91,7 @@ class DesktopContainer extends Component {
               size='large'
             >
               <Container>
+               <img className="logo" src={logo} alt="Car Logo" WIDTH="100" HEIGHT="100" />
                <Menu.Item position='right'>
                   <Link to="/login"><Button as='a' inverted={!fixed}>
                     Log in
@@ -197,22 +202,22 @@ const HomepageLayout = () => (
         <Grid.Row>
           <Grid.Column width={8}>
             <Header as='h3' style={{ fontSize: '2em' }}>
-              We Help Companies and Companions
+            POWER FOR YOUR CONTROL 
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              We can give your company superpowers to do things that they never thought possible.
-              Let us delight your customers and empower your needs... through pure data analytics.
+            Driving is a personal experience and being on the open road means you have the freedom to go anywhere. 
+            It makes a driver feel like they’re in control of their own destiny.
             </p>
             <Header as='h3' style={{ fontSize: '2em' }}>
               Why Not? Live Your Dream in a Classic!
             </Header>
             <p style={{ fontSize: '1.33em' }}>
               Yes that's right, you thought it was the stuff of dreams, but even bananas can be
-              bioengineered.
+              race car.
             </p>
           </Grid.Column>
           <Grid.Column floated='right' width={6}>
-            <Image bordered rounded size='large' src='/images/wireframe/white-image.png' />
+            <Image bordered rounded size='large' src={Blackandwhite} />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -233,11 +238,11 @@ const HomepageLayout = () => (
           </Grid.Column>
           <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
             <Header as='h3' style={{ fontSize: '2em' }}>
-              "I shouldn't have gone with their competitor."
+              "Why not? Drive Like a girl!."
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              <Image avatar src='/images/avatar/large/nan.jpg' />
-              <b>Nan</b> Chief Fun Officer Acme Toys
+              <Image avatar src={Plymouthpick} />
+              <b>Pink Plymouth</b> Brought in 1962 and still ride like a Dream!
             </p>
           </Grid.Column>
         </Grid.Row>
