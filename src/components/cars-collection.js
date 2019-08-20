@@ -1,21 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import CarCard from '../containers/car-card'
-import { Header, Segment, Container, Grid, Divider } from 'semantic-ui-react'
+import { Header, Segment, Container, Grid, Divider, Button } from 'semantic-ui-react'
 
 
 class CarsCollection extends React.Component {
-   
-
   render(){
       return(
           <div>
             <Segment>
             <Header as='h1' textAlign='center' >Classic Car Collection</Header>
+            <Link to="/login">{this.state.loggedInStatus ? <Button content="Login"/> : null}</Link>
             </Segment>
             <Segment>
                 <Container>
                     <Grid centered>
-                     {this.props.cars.map((car, idx) => <CarCard key={idx} car={car}/> )}
+                     {this.props.cars.map((car, idx) => <CarCard user={this.props.user} loginStatus={this.props.loginStatus} key={idx} car={car}/> )}
                       <Divider hidden/>
                     </Grid>
                 </Container>

@@ -27,11 +27,35 @@ class App extends Component {
   }
 
   componentDidMount(){
+    this.checkLoginStatus();
     fetch(carsApi)
     .then(res => res.json())
     .then(cars => this.setState({cars: cars}))
     // .catch(error => console.log(error))
 
+  }
+
+  checkLoginStatus() {
+    fetch("http://localhost:3001/login", { withCredentials: true })
+    .then(response => {
+      if (this.state.loggedInStatus === false) 
+      {
+        this.setState({
+          loggedInStatus: true,
+          currentUser: response.user
+        });
+      } else if (
+        (this.state.loggedInStatus === true)
+      ) {
+        this.setState({
+          loggedInStatus: false
+        });
+      }
+    })
+    .catch(error => {
+      console.log("check login error", error);
+    },
+    );   
   }
 
   // handleLogout() {
@@ -52,13 +76,13 @@ class App extends Component {
     this.setState({
      username: e.target.value
     })       
-}
+  }
 
-handleSignPChange = (e) => {
-  this.setState({
-   password: e.target.value
-  })       
-}
+  handleSignPChange = (e) => {
+    this.setState({
+    password: e.target.value
+    })       
+  }
 
   handleSignSubmit = (e) => {
     e.preventDefault();
@@ -72,39 +96,10 @@ handleSignPChange = (e) => {
         .then(res => res.json())
         .then(data => {this.setState({ currentUser: data.user }) })
         this.props.history.push("/userprofile")
-}
+  }
 
  
-  
-    // componentDidMount() {
-    //   this.checkLoginStatus();
-    // }
-
-    // checkLoginStatus() {
-    //     fetch("http://localhost:3001/login", { withCredentials: true })
-    //     .then(response => {
-    //       if (
-    //         response.data.login &&
-    //         this.state.loggedInStatus === false
-    //       ) {
-    //         this.setState({
-    //           loggedInStatus: true,
-    //           user: response.data.user
-    //         });
-    //       } else if (
-    //         !response.data.logged_in &
-    //         (this.state.loggedInStatus === true)
-    //       ) {
-    //         this.setState({
-    //           loggedInStatus: false,
-    //           user: {}
-    //         });
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.log("check login error", error);
-    //     });
-    // }
+    
   
   
 
@@ -118,7 +113,6 @@ handleSignPChange = (e) => {
 
   handleLoginSubmit = (e) => {
     e.preventDefault()
-    console.log( this.state, 'login clicked')
     fetch(`http://localhost:3000/login`, {
       method: 'POST',
       headers: {
@@ -127,13 +121,13 @@ handleSignPChange = (e) => {
       body: JSON.stringify({ user: {username: this.state.username, password: this.state.password}})
       })
      .then(res => res.json())
-     .then(response => {
+     .then(data => {
         if (
           this.state.loggedInStatus === false
         ) {
           this.setState({
             loggedInStatus: true,
-            currentUser: response.user
+            currentUser: data
           });
           this.props.history.push("/userprofile")
 
@@ -160,7 +154,7 @@ handleSignPChange = (e) => {
         handleLoginUChange={this.handleLoginUChange} handleLoginPChange={this.handleLoginPChange} handleLoginSubmit={this.handleLoginSubmit}/>)} />
         <Route exact path="/signup" render={() => (<SignUpPage handleSignUChange={this.handleSignUChange} handleSignPChange={this.handleSignPChange} handleSignSubmit={this.handleSignSubmit} username={this.state.username} password={this.state.password}/>)}/>
         <Route exact path="/userprofile" render={() => (<UserProfile user={this.state.currentUser}/>)}/>
-        <Route exact path="/cars" render={() => ( <CarsCollection cars={this.state.cars}/>)}/>
+        <Route exact path="/cars" render={() => ( <CarsCollection user={this.state.currentUser} loginStatus={this.state.loggedInStatus} cars={this.state.cars}/>)}/>
 
         
      </Switch>

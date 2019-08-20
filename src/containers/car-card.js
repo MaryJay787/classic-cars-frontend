@@ -20,12 +20,13 @@ class CarCard extends React.Component{
   render(){
         return(
             <div>
+                {console.log(this.props.user)}
             <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
             <Card key="front" >
                 <Image src={this.props.car.image} circular size="medium" />
                 <Card.Content>
                 <Card.Header>{this.props.car.make} {this.props.car.model}</Card.Header>
-                <Card.Meta>Year:{this.props.car.year}</Card.Meta>
+                <Card.Meta>Year:{this.props.car.users}</Card.Meta>
                 <Card.Description>
                     Engine: {this.props.car.engine}
                 </Card.Description>
