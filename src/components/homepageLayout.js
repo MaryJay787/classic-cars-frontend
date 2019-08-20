@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { Button, Container, Grid, Header, Icon, Image ,Menu, Responsive,Segment,
          Sidebar, Visibility,} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import logo from "../logo.png";
+import Blackandwhite from "../blackandwhitecar.jpg"
+
 
 // Heads up!
 // We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
@@ -28,7 +31,7 @@ const HomepageHeading = ({ mobile }) => (
         fontWeight: 'normal',
         marginBottom: 0,
         marginTop: mobile ? '1.5em' : '3em',
-        
+       
       }}
     />
     <Header
@@ -87,6 +90,7 @@ class DesktopContainer extends Component {
               size='large'
             >
               <Container>
+               <img className="logo" src={logo} alt="Car Logo" WIDTH="100" HEIGHT="100" />
                <Menu.Item position='right'>
                   <Link to="/login"><Button as='a' inverted={!fixed}>
                     Log in
@@ -212,7 +216,7 @@ const HomepageLayout = () => (
             </p>
           </Grid.Column>
           <Grid.Column floated='right' width={6}>
-            <Image bordered rounded size='large' src='/images/wireframe/white-image.png' />
+            <Image bordered rounded size='large' src={Blackandwhite} />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
