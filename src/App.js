@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 // import {axios} from "axios";
 import UserProfile from "./components/userprofile";
 import HomepageLayout from "./components/homepageLayout";
@@ -7,7 +7,7 @@ import Login from './components/login'
 import SignUpPage from './components/signup-page'
 // import CarsCollection from './components/cars-collection'
 
-export default class App extends Component {
+class App extends Component {
   constructor(){
     super()
     this.state = {
@@ -62,8 +62,8 @@ handleSignPChange = (e) => {
         body: JSON.stringify({user:{username: this.state.username, password: this.state.password}})
         })
         .then(res => res.json())
-        .then(data => this.setState({currentUser: data.user, loggedInStatus: true}))
-        // .then(data => this.props.history.push('/userprofile'))
+        .then(data => {this.setState({ currentUser: data.user }) })
+        this.props.history.push("/userprofile")
 }
 
  
@@ -126,9 +126,11 @@ handleSignPChange = (e) => {
           this.state.loggedInStatus === false
         ) {
           this.setState({
-            loggedInStatus: true
+            loggedInStatus: true,
+            currentUser: response.user
           });
-          this.props.history.push('/userprofile', response)
+          this.props.history.push("/userprofile")
+
         } else if (
           (this.state.loggedInStatus === true)
         ) {
@@ -139,7 +141,8 @@ handleSignPChange = (e) => {
       })
       .catch(error => {
         console.log("check login error", error);
-      });   
+      },
+      );   
   }
 
   render() {
@@ -150,13 +153,14 @@ handleSignPChange = (e) => {
         <Route exact path="/login" render={() => (<Login user={this.state.username} 
         handleLoginUChange={this.handleLoginUChange} handleLoginPChange={this.handleLoginPChange} handleLoginSubmit={this.handleLoginSubmit}/>)} />
         <Route exact path="/signup" render={() => (<SignUpPage handleSignUChange={this.handleSignUChange} handleSignPChange={this.handleSignPChange} handleSignSubmit={this.handleSignSubmit} username={this.state.username} password={this.state.password}/>)}/>
-        <Route exact path="/userprofile" render={() => (<UserProfile user={this.state.username}/>)}/>
+        <Route exact path="/userprofile" render={() => (<UserProfile user={this.state.currentUser}/>)}/>
         {/* <Route exact path="/cars" component={CarsCollection}/> */}
 
         
      </Switch>
-     {this.state.loggedInStatus ? <UserProfile user={this.state.username}/> : null}
+     {/* {this.state.loggedInStatus ? <UserProfile user={this.state.username}/> : null} */}
       </div>
     );
   }
 }
+export default withRouter(App);
