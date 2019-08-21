@@ -5,9 +5,9 @@ class SignUpPage extends React.Component{
 
     render(){
         return(
-            <Segment padded='very'>
-                <Header content=" Create Your Classic Cars Account!"  textAlign='center'/>
-                <Divider/>
+            <Segment padded='very' inverted tertiary color='teal' circular >
+                <Header as='h1'content=" Create Your Classic Cars Account!"  textAlign='center'/>
+                <Divider hidden />
                 <Container textAlign="center">
                     <Grid centered>
                         <Form onSubmit={this.props.handleSignSubmit} >  

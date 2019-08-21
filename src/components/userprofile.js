@@ -68,11 +68,11 @@ export default class UserProfile extends React.Component{
           <Image src={image}/>
            
           <Card.Content>
-            <Card.Header>{username}</Card.Header>
+            <Card.Header>{(username).slice(0,1).toUpperCase() + (username).slice(1, (username).length)}</Card.Header>
           <Card.Meta>
             <span className="date">Joined in 2013</span>
           </Card.Meta>
-          <Card.Description>{username} is an art director living in New York. </Card.Description>
+          <Card.Description>{(username).slice(0,1).toUpperCase() + (username).slice(1, (username).length)} is an art director living in New York. </Card.Description>
           </Card.Content>
           <Card.Content extra>
            
@@ -85,7 +85,7 @@ export default class UserProfile extends React.Component{
         </Container>
 
         <Segment>
-          <Header textAlign='center'>{username} Cars Collections</Header>
+          <Header textAlign='center'>{(username).slice(0,1).toUpperCase() + (username).slice(1, (username).length)} Cars Collections</Header>
           <Divider hidden/>
           <Container>
             <Grid centered>
