@@ -17,49 +17,26 @@ export default class UserProfile extends React.Component{
     return cars.filter(car => car.added)
   }
   componentDidMount(){
-    this.checkLoginStatus();
-
+    this.checkLoginStatus()
   }
-  // user(){
-  //   const username  = ls.get('currentUser')
-  //   const name = ls.get('username')
-  //   console.log(username)
-  // }
-
+  
   checkLoginStatus(){
     // console.log(this.props.user)
-    fetch("http://localhost:3000/login", {
-      method: 'POST',
+    const jwt = ls.get('jwt')
+    console.log(jwt)
+    fetch("http://localhost:3000/profile", {
+      method: 'GET',
       headers: {
-        'Content-type' : 'application/json'
-      },
-      body: JSON.stringify({ user: {username: this.props.user.username, password: this.props.user.password}})
-      })
+        'Authorization': `Bearer ${jwt}`
+      }
+    })
     .then(res => res.json())
     .then(console.log)}
-  //   .then(response => {
-  //     if (this.state.loggedInStatus === false) 
-  //     {
-  //       this.setState({
-  //         loggedInStatus: true,
-  //         currentUser: response.user
-  //       });
-  //     } else if (
-  //       (this.state.loggedInStatus === true)
-  //     ) {
-  //       this.setState({
-  //         loggedInStatus: false
-  //       });
-  //     }
-  //   })
-  //   .catch(error => {
-  //     console.log("check login error", error);
-  //   },
-  //   );   
-  // }
     
   render (){
       const { activeItem } = this.state
+      const username = ls.get('username')
+      const image = ls.get('image')
         return (
         <div>
         <Container>
@@ -88,14 +65,14 @@ export default class UserProfile extends React.Component{
           <Header as='h1'>Flatiron Classic Cars</Header>
         <Segment>
           <Card>
-          <Image src={this.props.user.image}/>
+          <Image src={image}/>
            
           <Card.Content>
-            <Card.Header>{this.props.user.username}</Card.Header>
+            <Card.Header>{username}</Card.Header>
           <Card.Meta>
             <span className="date">Joined in 2013</span>
           </Card.Meta>
-          <Card.Description>{this.props.user.username} is an art director living in New York. </Card.Description>
+          <Card.Description>{username} is an art director living in New York. </Card.Description>
           </Card.Content>
           <Card.Content extra>
            
@@ -108,7 +85,7 @@ export default class UserProfile extends React.Component{
         </Container>
 
         <Segment>
-          <Header textAlign='center'>{this.props.user.username} Cars Collections</Header>
+          <Header textAlign='center'>{username} Cars Collections</Header>
           <Divider hidden/>
           <Container>
             <Grid centered>

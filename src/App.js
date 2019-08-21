@@ -75,6 +75,10 @@ class App extends Component {
       currentUser: {},
       redirect: true
     });
+    ls.remove('jwt')
+    ls.remove('username')
+    ls.remove('image')
+
     return <Redirect to="/" />
   }
 
@@ -85,6 +89,8 @@ class App extends Component {
       currentUser: data.user
     });
     ls.set('jwt', data.jwt)
+    ls.set('username', data.user.username)
+    ls.set('image', data.user.image)
   }
 
   handleSignUChange = (e) => {
@@ -115,9 +121,12 @@ class App extends Component {
         body: JSON.stringify({user:{username: this.state.username, password: this.state.password, image: this.state.image}})
         })
         .then(res => res.json())
-        .then(data => {this.setState({ currentUser: data.user }) })
-        ls.set('currentUser', this.state.currentUser)
-        this.props.history.push("/userprofile")
+        // .then(data => console.log(data))
+        .then(data => {
+          this.handleLogin(data)
+          alert('SignUp Successful')
+          this.props.history.push("/userprofile")
+        })
   }
 
  
@@ -149,16 +158,13 @@ class App extends Component {
         if (
           this.state.loggedInStatus === false
         ) {
+          alert('Login Successful')
           this.handleLogin(data)
           this.props.history.push("/userprofile")
-
-        } else if (
-          (this.state.loggedInStatus === true)
-        ) {
-          this.setState({
-            loggedInStatus: false
-          });
-        }
+        } else
+        alert('Username or Password Incorrect')
+        return data.message
+  
       })
       .catch(error => {
         console.log("check login error", error);
