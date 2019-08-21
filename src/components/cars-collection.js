@@ -9,21 +9,21 @@ class CarsCollection extends React.Component {
       return(
           <div>
             <Segment>
-            <Header as='h1' textAlign='center' >Classic Car Collection</Header>
-            <Link to="/login"><Button content="Login"/></Link>
-            <Link to="/userprofile"><Button content="View Profile"/></Link>
-
+              <Header as='h1' textAlign='center' >Classic Car Collection</Header>
+              {this.props.loginStatus ? null: <Link to="/login"><Button content="Login"/></Link>}
+              <Link to="/userprofile"><Button content="View Profile"/></Link>
             </Segment>
             <Segment>
                 <Container>
                     <Grid centered>
-                     {this.props.cars.map((car, idx) => <CarCard addCar={this.props.addCar} user={this.props.user} loginStatus={this.props.loginStatus} key={idx} car={car}/> )}
+                      {this.props.cars.map((car, idx) => <CarCard addCar={this.props.addCar} 
+                                                            user={this.props.user} loginStatus={this.props.loginStatus} 
+                                                            key={idx} car={car}/> )}
                       <Divider hidden/>
                     </Grid>
                 </Container>
             </Segment>
-        </div>
-        
+          </div>
       )
   }
 }

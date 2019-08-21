@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ReactCardFlip from 'react-card-flip';
 import { Card, Image, Divider, Button, List } from 'semantic-ui-react'
@@ -21,68 +20,63 @@ class CarCard extends React.Component{
   render(){
         return(
             <div>
-                {/* {console.log(this.props.user)} */}
-            <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
-            <Card key="front" >
-                <Image src={this.props.car.image} circular size="medium" />
-                <Card.Content>
-                <Card.Header>{this.props.car.make} {this.props.car.model}</Card.Header>
-                <Card.Meta>Year:{this.props.car.year}</Card.Meta>
-                <Card.Description>
-                    Engine: {this.props.car.engine}
-                </Card.Description>
-                
-                </Card.Content>
-             
-                <Button onClick={this.handleClick}>Click to flip</Button>
-                {this.props.addBtnToggle ? <Button onClick={(e) => this.props.removeCar(this.props.car.id)} content='Remove Car'/> : <Button onClick={(e) => this.props.addCar(this.props.car.id)} content='Add To Collection'/>}
+                <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
+                    <Card key="front" >
+                        <Image src={this.props.car.image} circular size="medium" />
+                        <Card.Content>
+                        <Card.Header>{this.props.car.make} {this.props.car.model}</Card.Header>
+                        <Card.Meta>Year:{this.props.car.year}</Card.Meta>
+                        <Card.Description>
+                            Engine: {this.props.car.engine}
+                        </Card.Description>
+                        </Card.Content>
+                    
+                        <Button onClick={this.handleClick}>View Car Specs</Button>
+                        {this.props.addBtnToggle ? <Button onClick={(e) => this.props.removeCar(this.props.car.id)} content='Remove Car'/> : 
+                                                    <Button onClick={(e) => this.props.addCar(this.props.car.id)} content='Add To Collection'/>}
+                        <Divider hidden/>
+                    </Card>
 
-             
-                <Divider hidden/>
-            </Card>
+                    <Divider hidden/>
 
-            <Divider hidden/>
-
-            <Card key="back">
-            <Card.Content>
-                <Card.Header>{this.props.car.make} {this.props.car.model}</Card.Header>
-                <Card.Meta> Year:{this.props.car.year}</Card.Meta>
-                <List>
-                    <List.Item>
-                    <List.Header>Engine</List.Header>
-                    {this.props.car.engine}
-                    </List.Item>
-                    <List.Item>
-                    <List.Header>Transition</List.Header>
-                    {this.props.car.trans}
-                    </List.Item>
-                    <List.Item>
-                    <List.Header>Body Type</List.Header>
-                    {this.props.car.body_type}
-                    </List.Item>
-                    <List.Item>
-                    <List.Header>Drive</List.Header>
-                    {this.props.car.drive}
-                    </List.Item>
-                    <List.Item>
-                    <List.Header>Color</List.Header>
-                    {this.props.car.color}
-                    </List.Item>
-                    <List.Item>
-                    <List.Header>Interior Color</List.Header>
-                    {this.props.car.interior_color}
-                    </List.Item>
-                    <List.Item>
-                    <List.Header>Interior</List.Header>
-                    {this.props.car.interior}
-                    </List.Item>
-                </List>
-                
-                </Card.Content>
-                <Button onClick={this.handleClick}>Click to flip</Button>
-            </Card>
-            </ReactCardFlip>
-
+                    <Card key="back">
+                    <Card.Content>
+                        <Card.Header>{this.props.car.make} {this.props.car.model}</Card.Header>
+                        <Card.Meta> Year:{this.props.car.year}</Card.Meta>
+                        <List>
+                            <List.Item>
+                            <List.Header>Engine</List.Header>
+                            {this.props.car.engine}
+                            </List.Item>
+                            <List.Item>
+                            <List.Header>Transition</List.Header>
+                            {this.props.car.trans}
+                            </List.Item>
+                            <List.Item>
+                            <List.Header>Body Type</List.Header>
+                            {this.props.car.body_type}
+                            </List.Item>
+                            <List.Item>
+                            <List.Header>Drive</List.Header>
+                            {this.props.car.drive}
+                            </List.Item>
+                            <List.Item>
+                            <List.Header>Color</List.Header>
+                            {this.props.car.color}
+                            </List.Item>
+                            <List.Item>
+                            <List.Header>Interior Color</List.Header>
+                            {this.props.car.interior_color}
+                            </List.Item>
+                            <List.Item>
+                            <List.Header>Interior</List.Header>
+                            {this.props.car.interior}
+                            </List.Item>
+                        </List>
+                    </Card.Content>
+                        <Button onClick={this.handleClick}>Back</Button>
+                    </Card>
+                </ReactCardFlip>
             </div>
         )
     }

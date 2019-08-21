@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 import CarCard from '../containers/car-card';
 import ls from 'local-storage';
 
-
-
-
 export default class UserProfile extends React.Component{
   state = { activeItem: 'profile',
               addBtnToggle: false }
@@ -21,7 +18,6 @@ export default class UserProfile extends React.Component{
   }
   
   checkLoginStatus(){
-    // console.log(this.props.user)
     const jwt = ls.get('jwt')
     console.log(jwt)
     fetch("http://localhost:3000/profile", {
@@ -38,67 +34,62 @@ export default class UserProfile extends React.Component{
       const username = ls.get('username')
       const image = ls.get('image')
         return (
-        <div>
-        <Container>
-        <Menu pointing secondary>
-          <Menu.Item name='profile' active={activeItem === 'profile'} onClick={this.handleItemClick} />
-          <Menu.Item
-            name='your car collection'
-            active={activeItem === 'your car collection'}
-            onClick={this.handleItemClick}
-          />
-          <Link to="/cars"><Menu.Item
-            name='add car'
-            active={activeItem === 'add car'}
-            onClick={this.handleItemClick}
-          /></Link>
-          <Menu.Menu position='right'>
-            <Link to="/"><Menu.Item
-              name='logout'
-              active={activeItem === 'logout'}
-              onClick={this.props.logoutBtn}
-            /></Link>
-          </Menu.Menu>
-        </Menu>
-
-
-          <Header as='h1'>Flatiron Classic Cars</Header>
-        <Segment>
-          <Card>
-          <Image src={image}/>
-           
-          <Card.Content>
-            <Card.Header>{(username).slice(0,1).toUpperCase() + (username).slice(1, (username).length)}</Card.Header>
-          <Card.Meta>
-            <span className="date">Joined in 2013</span>
-          </Card.Meta>
-          <Card.Description>{(username).slice(0,1).toUpperCase() + (username).slice(1, (username).length)} is an art director living in New York. </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-           
-            <Icon name='user'/>
-              Number of User Cards 
-          
-          </Card.Content>
-          </Card>
-        </Segment> 
-        </Container>
-
-        <Segment>
-          <Header textAlign='center'>{(username).slice(0,1).toUpperCase() + (username).slice(1, (username).length)} Cars Collections</Header>
-          <Divider hidden/>
+          <div>
           <Container>
-            <Grid centered>
-            {this.state.activeItem === 'your car collection' ? this.mapCars().map(car => <CarCard removeCar={this.props.removeCar} addBtnToggle={this.state.addBtnToggle} car={car}/>) : null}
-            </Grid>
+            <Menu pointing secondary>
+              <Menu.Item name='profile' active={activeItem === 'profile'} onClick={this.handleItemClick} />
+              <Menu.Item
+                name='your car collection'
+                active={activeItem === 'your car collection'}
+                onClick={this.handleItemClick}/>
+              <Link to="/cars">
+                <Menu.Item
+                name='add car'
+                active={activeItem === 'add car'}
+                onClick={this.handleItemClick}/>
+              </Link>
+              <Menu.Menu position='right'>
+                <Link to="/">
+                  <Menu.Item
+                  name='logout'
+                  active={activeItem === 'logout'}
+                  onClick={this.props.logoutBtn}/>
+                </Link>
+              </Menu.Menu>
+            </Menu>
+
+            <Header as='h1'>Flatiron Classic Cars</Header>
+            <Segment>
+              <Card>
+              <Image src={image}/>
+              
+              <Card.Content>
+                <Card.Header>{(username).slice(0,1).toUpperCase() + (username).slice(1, (username).length)}</Card.Header>
+              <Card.Meta>
+                <span className="date">Joined in 2013</span>
+              </Card.Meta>
+              <Card.Description>{(username).slice(0,1).toUpperCase() + (username).slice(1, (username).length)} is an art director living in New York. </Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <Icon name='car'/>
+                {this.mapCars().length} Classics In Collection
+              </Card.Content>
+              </Card>
+            </Segment> 
+          </Container>
+
+          <Segment>
+            <Header textAlign='center'>{(username).slice(0,1).toUpperCase() + (username).slice(1, (username).length)} Cars Collections</Header>
+            <Divider hidden/>
+            <Container>
+              <Grid centered>
+              {this.state.activeItem === 'your car collection' ? this.mapCars().map(car => <CarCard removeCar={this.props.removeCar} addBtnToggle={this.state.addBtnToggle} car={car}/>) : null}
+              </Grid>
             </Container>
-        </Segment>
-        </div> //end of div
-         
-        
+          </Segment>
+          </div>
         )
     }
-
 }
 
 
