@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 // import {axios} from "axios";
 import UserProfile from "./components/userprofile";
 import HomepageLayout from "./components/homepageLayout";
@@ -17,9 +17,11 @@ class App extends Component {
       loggedInStatus: false ,
           username: '', 
         password: '',
+        image: '',
         currentUser: {},
         cars: [],
-        userCars: []   
+        userCars: [],
+        redirect: false  
     };
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
     this.handleSignSubmit = this.handleSignSubmit.bind(this)
@@ -67,19 +69,23 @@ class App extends Component {
   //   );   
   // }
 
-  // handleLogout() {
-  //   this.setState({
-  //     loggedInStatus: false,
-  //     user: {}
-  //   });
-  // }
+  handleLogout = (e) => {
+    this.setState({
+      loggedInStatus: false,
+      currentUser: {},
+      redirect: true
+    });
+    return <Redirect to="/" />
+  }
 
-  // handleLogin(data) {
-  //   this.setState({
-  //     loggedInStatus: true,
-  //     user: data.user
-  //   });
-  // }
+  handleLogin(data) {
+    console.log(data)
+    this.setState({
+      loggedInStatus: true,
+      currentUser: data.user
+    });
+    ls.set('jwt', data.jwt)
+  }
 
   handleSignUChange = (e) => {
     this.setState({
@@ -93,6 +99,12 @@ class App extends Component {
     })       
   }
 
+  handleSignIChange = (e) => {
+    this.setState({
+    image: e.target.value
+    })       
+  }
+
   handleSignSubmit = (e) => {
     e.preventDefault();
     fetch("http://localhost:3000/users", {
@@ -100,10 +112,11 @@ class App extends Component {
         headers: {
           'Content-type' : 'application/json'
         },
-        body: JSON.stringify({user:{username: this.state.username, password: this.state.password}})
+        body: JSON.stringify({user:{username: this.state.username, password: this.state.password, image: this.state.image}})
         })
         .then(res => res.json())
         .then(data => {this.setState({ currentUser: data.user }) })
+        ls.set('currentUser', this.state.currentUser)
         this.props.history.push("/userprofile")
   }
 
@@ -123,7 +136,7 @@ class App extends Component {
 
   handleLoginSubmit = (e) => {
     e.preventDefault()
-    fetch(`http://localhost:3000/login`, {
+    fetch("http://localhost:3000/login", {
       method: 'POST',
       headers: {
         'Content-type' : 'application/json'
@@ -131,14 +144,12 @@ class App extends Component {
       body: JSON.stringify({ user: {username: this.state.username, password: this.state.password}})
       })
      .then(res => res.json())
+    //  .then(console.log)
      .then(data => {
         if (
           this.state.loggedInStatus === false
         ) {
-          this.setState({
-            loggedInStatus: true,
-            currentUser: data
-          });
+          this.handleLogin(data)
           this.props.history.push("/userprofile")
 
         } else if (
@@ -156,7 +167,6 @@ class App extends Component {
   }
 
   addCar = (id) => {
-    console.log(id, 'add car clicked')
     const newUserCar = this.state.cars.map(car => {
       if(car.id === id){
         car.added = true
@@ -192,8 +202,8 @@ class App extends Component {
         <Route exact path="/" render={HomepageLayout}/>
         <Route exact path="/login" render={() => (<Login user={this.state.username} 
         handleLoginUChange={this.handleLoginUChange} handleLoginPChange={this.handleLoginPChange} handleLoginSubmit={this.handleLoginSubmit}/>)} />
-        <Route exact path="/signup" render={() => (<SignUpPage handleSignUChange={this.handleSignUChange} handleSignPChange={this.handleSignPChange} handleSignSubmit={this.handleSignSubmit} username={this.state.username} password={this.state.password}/>)}/>
-        <Route exact path="/userprofile" render={() => (<UserProfile removeCar={this.removeCar} username={this.state.username}/>)}/>
+        <Route exact path="/signup" render={() => (<SignUpPage handleSignIChange={this.handleSignIChange} handleSignUChange={this.handleSignUChange} handleSignPChange={this.handleSignPChange} handleSignSubmit={this.handleSignSubmit} username={this.state.username} password={this.state.password}/>)}/>
+        <Route exact path="/userprofile" render={() => (<UserProfile logoutBtn={this.handleLogout} removeCar={this.removeCar} user={this.state.currentUser}/>)}/>
         <Route exact path="/cars" render={() => ( <CarsCollection addCar={this.addCar} user={this.state.currentUser} loginStatus={this.state.loggedInStatus} cars={this.state.cars}/>)}/>
 
         

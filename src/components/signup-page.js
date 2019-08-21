@@ -7,6 +7,10 @@ class SignUpPage extends React.Component{
         return(
                 <Form onSubmit={this.props.handleSignSubmit}>  
                     <Form.Field>
+                    <label>image</label>
+                    <input placeholder='Image Url' name='image' onChange={this.props.handleSignIChange} />
+                    </Form.Field>
+                    <Form.Field>
                     <label>username</label>
                     <input placeholder='Username' name='username' onChange={this.props.handleSignUChange} />
                     </Form.Field>
