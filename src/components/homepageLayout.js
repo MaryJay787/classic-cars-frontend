@@ -30,10 +30,20 @@ const HomepageHeading = ({ mobile }) => (
       style={{
         fontSize: mobile ? '2em' : '4em',
         fontWeight: 'normal',
+        color: 'DeepSkyBlue',
         marginBottom: 0,
         marginTop: mobile ? '1.5em' : '3em',
+        width: 1200,
+        height: 600,
+        display: 'inline-block',
+        backgroundImage: `url(${"https://cdn.dealeraccelerate.com/vanguard/1/8669/741300/1920x1440/1967-ford-mustang-fastback-shelby-gt500-tribute"})`,
+        bbackgroundPosition: "70% 30%;" ,
+  
       }}
+    
+     
     />
+    
     <Header
       as='h2'
       content='Drive Your Dream.'
@@ -42,6 +52,7 @@ const HomepageHeading = ({ mobile }) => (
         fontSize: mobile ? '1.5em' : '1.7em',
         fontWeight: 'normal',
         marginTop: mobile ? '0.5em' : '1.5em',
+       
       }}
     />
     <Link to="/cars"><Button primary size='huge'>
